@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #main {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            border: 1px solid black;
+            margin: 100px 0 0 25px;
+        }
+
+        #subMain {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            background: yellow;
+            margin: 100px 0 0 100px;
+        }
+
+        .least {
+            position: relative;
+            top: 15px;
+            left: 20px;
+        }
+
+        #absoluteBox {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: blue;
+            top: 10px;
+            right: 10px;
+        }
+
+        #topBox {
+            position: absolute;
+            width: 75px;
+            height: 30px;
+            background: red;
+            top: 20px;
+            left: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="main">
+    <div id="subMain">
+        <h2>BraveHeart</h2>
+        Fight and you may live -- <span class="least">at least for a while.</span>
+        <div id="absoluteBox"></div>
+    </div>
+    <div id="topBox"></div>
+</div>
+</body>
+
+</html>

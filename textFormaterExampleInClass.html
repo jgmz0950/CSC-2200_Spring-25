@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Formatter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            padding: 10px;
+            background: #eef;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+            color: darkblue;
+        }
+
+        .checkbox-container {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 style="text-align: center;">Text Formatter</h2>
+
+    <label for="textInput">Enter text:</label>
+    <input type="text" id="textInput">
+
+    <div>
+        <label for="formatSelect">Change Case:</label>
+        <input type="radio" id="formatSelect" name="format" value="lc" checked="checked">
+        <label for="formatSelect">Lower Case</label>
+        <input type="radio" id="formatSelectUC" name="format" value="uc">
+        <label for="formatSelectUC">Upper Case</label>
+
+    </div>
+
+
+
+    <label for="choose-transformation">Choose Transformation:</label>
+    <select id="choose-transformation">
+        <option value="reverse">Reverse Text</option>
+        <option value="slice">Slice (First 5 chars)</option>
+        <option value="substring">Substring (Chars 2 to 6)</option>
+        <option value="replace">Replace "hello" with "hi"</option>
+        <option value="trim">Trim Spaces</option>
+        <option value="charAt">Character at Position 2</option>
+        <option value="indexOf">Index of 'a'</option>
+        <option value="doubleLetters">Double Each Letter</option>
+        <option value="countVowels">Count Vowels</option>
+        <option value="countE">Count Letter 'e'</option>
+
+    </select>
+
+    <button onclick="formatText()">Format Text</button>
+
+    <div id="output">Formatted text will appear here</div>
+</div>
+
+<script>
+    function formatText() {
+        //get vars
+        let text = document.getElementById('textInput').value;
+       // let formatOption = document.getElementById('formatSelect'); CANNOT USE
+        let formatOption = document.querySelector('input[name="format"]:checked').value; //SELECT CURRENTLY CHECKED RADIO INSIDE NAME=FORMAT GROUP
+        let transformation = document.getElementById('choose-transformation').value;
+        let outputElement = document.getElementById('output');
+
+        //apply lowercase || uppercase
+        text = formatOption === "lc" ? text.toLowerCase() : text.toUpperCase();
+
+        //apply option
+        let newText = applyOption(text, transformation)
+        outputElement.innerHTML = newText || "Enter some text";
+
+
+
+    }
+
+    function applyOption(text, option) {
+        switch (option) {
+            case "reverse":
+                //TODO: use forloop
+            case "slice":
+                return text.slice(0,5);
+            case "substring":
+                return text.substring(2, 6);
+            case "replace":
+                //TODO: replace hello with hi
+            case "trim":
+                return text.trim();
+            case "charAt":
+                return text.charAt(2);
+            case "indexOf":
+                return text.indexOf('a');
+            case "doubleLetters":
+                //TODO:
+            case "countVowels":
+              return  countVowels(text,/[aeiou]/g);
+            case "countE":
+                // let vowels = text.match(/[e]/g) // gi = case-insensitive
+                // return vowels ? vowels.length : 0;
+                return countVowels(text,/[e]/g);
+            default:
+                return text;
+        }
+    }
+
+    function countVowels(text, pattern) {
+        let matches = text.match(pattern);
+        return matches ? matches.length : 0;
+    }
+
+</script>
+</body>
+</html>
+

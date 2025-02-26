@@ -1,173 +1,99 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title> Grid Form </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Scrambler Game</title>
     <style>
-        html {
-            font-size: 16px;
-            /*test*/
-        }
         body {
-            border: 1px dashed red;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto auto 1fr;
-        }
-        header {
-            background: lawngreen;
-            height: 100px;
-            border: 1px solid black;
+            font-family: Arial, sans-serif;
             text-align: center;
-            grid-column: 1 / 3;
+            background-color: #f4f4f4;
         }
-        main {
-            background-color: yellow;
-            margin-top: 40px; /* Remove the top margin from <h2> */
-            text-align: center;
-            grid-column: 1 / 3;
+        #scrambledWord {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px;
         }
-        form {
-            grid-column: 1/3;
-            display: grid;
-            padding: 1em;
-            background: #f9f9f9;
-            border: 1px solid yellow;
-            max-width: 100%;
-            padding: 3em;
+        #feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            color: green;
         }
-        label {
-            padding: 0.5em 0.5em 0.5em 0;
-        }
-        input {
-            padding: 0.7em;
-            margin-bottom: 0.5rem;
-        }
-        input:focus {
-            outline: 3px solid gold;
-        }
-
-        /* Align radio buttons horizontally using flexbox */
-        .radio-group {
-            display: flex;  /* Align radio buttons horizontally */
-            gap: 10px;      /* Optional: space between the radio buttons */
-        }
-
-        input[type="radio"] {
-            margin-right: 5px;
-        }
-
-        input[type="radio"] + label {
-            margin-right: 15px;
-        }
-
-        form input {
-            background: #fff;
-            border: 1px solid #9c9c9c;
-        }
-        form button {
-            background: lightgrey;
-            padding: 0.7em;
-            width: 100%;
-            border: 0;
-        }
-        form button:hover {
-            background: gold;
-        }
-        @media (min-width: 1000px) {
-            form {
-                grid-template-columns: 100px 1fr;
-                grid-gap: 16px;
-                background-color: cornsilk;
-            }
-            label {
-                text-align: right;
-                grid-column: 1 / 2;
-            }
-            input,
-            #results {
-                grid-column: 2 / 3;
-            }
-            button {
-                grid-column: 1 / 3;
-            }
+        #feedback.wrong {
+            font-size : 25px;
+            color: red;
         }
     </style>
     <script>
-        function btnClicked() {
-            let gotPermit = document.querySelector('input[name="gotPermit"]:checked');
-           let value = gotPermit.value;
+        // Only allow 3 attempts to guess the word
+        // After each wrong attempt deduct 1 from attempts and
+        //          indicate number of guesses left
+        // When attempts is 0 then do not allow the game to continue
+        //   You can optionally
+        //           disable the submit button
+        //           Make the submit button disappear
+        //           Change the button into a reset button
+        const words = ["apple", "baker", "charlie", "dog"];
+        let randIx = Math.floor(Math.random()*words.length);
+        let oWord = words[randIx];
+        let counter = 0;
+        let chancesLeft = 2;
 
-
-            const DRIVE = 16;
-            const ADULT = 18;
-            let oMsg = "";
-            let uAge = document.getElementById('age').value;
-            let msg = checkInput(uAge);
-
-            //if age > 16 and got permit is yes then output you can drive good citizen
-            if(uAge > 16 && value == 'Y' ){
-                    oMsg += "You can drive good citizen";
-            } else if (uAge < 16 || value == "N") {
-                     oMsg = "You cannot drive";
-                 } else {
-                     oMsg = "Not allowed to drive";
-                 }
-
-            // if (msg) {
-            //     oMsg = msg;
-            // } else if (uAge > 18) {
-            //     oMsg = "You are adult";
-            // } else {
-            //     oMsg = "No adulting for you";
-            // }
-            document.getElementById("results").innerText = oMsg;
+        function showWord(){
+            const scrambledWord = scramble(oWord);
+            document.getElementById("scrambledWord").innerText =  scrambledWord;
         }
-        function checkInput(age) {
-            let msg = "";
-            if (isNaN(parseInt(age))) {
-                msg = "Error age is Not A Number";
+        function scramble( word){
+            let letterList = word.split("");
+            for( let i=letterList.length-1; i>0; i--){
+                let idx = Math.floor(Math.random() * (i+1));
+                let temp = letterList[idx];
+                letterList[idx] =  letterList[i];
+                letterList[i] = temp;
             }
-            return msg;
+            return letterList.join("");
+        }
+        function playGame(){
+            const userGuess = document.getElementById("guessInput").value.toLowerCase();
+            const feedback = document.getElementById("feedback");
+            const restartButton = document.getElementById("restartGame");
+
+
+            if ( userGuess === oWord){
+                // feedback.innerText =  " Correct!";
+                // feedback.classList.remove( "wrong");
+                feedback.innerHTML = "<span style='color:blue'> Correct </span>"
+            } else {
+                feedback.innerText =  `Nope, you have ${chancesLeft} chances left` ;
+                feedback.classList.add( "wrong");
+                counter++;
+                chancesLeft--;
+                // console.log( counter );
+                if (counter >= 3){
+                    alert("You are out of luck!");
+                    document.getElementById("submitGuess").style.display = "none";
+                    restartButton.style.display = "inline-block"
+
+                }
+
+            }
         }
 
+        function restartGame() {
+            window.location.reload(); // Reload
+        }
 
     </script>
 </head>
-<body>
-<header>
-    <div>
-        This is a header
-    </div>
-</header>
-<main>
-    <h2> Enter Information:</h2>
-</main>
-<form class="form1" action="">
-    <label for="firstName" class="first-name">First Name</label>
-    <input id="firstName" type="text">
+<body onLoad="showWord()">
+<h1>Word Scrambler Game</h1>
+<p id="scrambledWord"></p>
+<input type="text" id="guessInput" placeholder="Guess the word" />
+<button id="submitGuess" onClick="playGame()">Submit</button>
+<button id="restartGame" style="display: none;" onClick="restartGame()">Restart Game</button>
 
-    <label for="age">Age</label>
-    <input id="age" type="text" />
+<p id="feedback"></p>
 
-    <label>Got Permit?</label>
-    <div class="radio-group">
-        <input id="gotPermitYes" type="radio" name="gotPermit" value="Y" checked />
-        <label for="gotPermitYes">Yes</label>
-
-        <input id="gotPermitNo" type="radio" name="gotPermit" value="N" />
-        <label for="gotPermitNo">No</label>
-    </div>
-
-    <label>Got a car?</label>
-    <div class="radio-group">
-            <input id="gotCarYes" type="radio" name="gotCar" value="Y" checked />
-        <label for="gotCarYes">Yes</label>
-
-        <input id="gotCarNo" type="radio" name="gotCar" value="N" /> No
-        <label for="gotCarNo"No></label>
-    </div>
-
-    <button type="button" onclick="btnClicked()">Start</button>
-    <div id="results"> Results Here </div>
-</form>
 </body>
 </html>
