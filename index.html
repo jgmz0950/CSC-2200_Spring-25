@@ -3,97 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Scrambler Game</title>
+    <title>Maze Game</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-        #scrambledWord {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 20px;
-        }
-        #feedback {
-            margin-top: 10px;
-            font-weight: bold;
-            color: green;
-        }
-        #feedback.wrong {
-            font-size : 25px;
-            color: red;
-        }
+        body { text-align: center; font-family: Arial, sans-serif; }
+        .grid { display: inline-grid; grid-template-columns: repeat(5, 50px); }
+        .cell { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+            border: 1px solid black; font-size: 24px; }
+        .wall { background: black; }
+        .player { background: blue; color: white; }
+        .goal { background: green; color: white; }
     </style>
-    <script>
-        // Only allow 3 attempts to guess the word
-        // After each wrong attempt deduct 1 from attempts and
-        //          indicate number of guesses left
-        // When attempts is 0 then do not allow the game to continue
-        //   You can optionally
-        //           disable the submit button
-        //           Make the submit button disappear
-        //           Change the button into a reset button
-        const words = ["apple", "baker", "charlie", "dog"];
-        let randIx = Math.floor(Math.random()*words.length);
-        let oWord = words[randIx];
-        let counter = 0;
-        let chancesLeft = 2;
-
-        function showWord(){
-            const scrambledWord = scramble(oWord);
-            document.getElementById("scrambledWord").innerText =  scrambledWord;
-        }
-        function scramble( word){
-            let letterList = word.split("");
-            for( let i=letterList.length-1; i>0; i--){
-                let idx = Math.floor(Math.random() * (i+1));
-                let temp = letterList[idx];
-                letterList[idx] =  letterList[i];
-                letterList[i] = temp;
-            }
-            return letterList.join("");
-        }
-        function playGame(){
-            const userGuess = document.getElementById("guessInput").value.toLowerCase();
-            const feedback = document.getElementById("feedback");
-            const restartButton = document.getElementById("restartGame");
-
-
-            if ( userGuess === oWord){
-                // feedback.innerText =  " Correct!";
-                // feedback.classList.remove( "wrong");
-                feedback.innerHTML = "<span style='color:blue'> Correct </span>"
-            } else {
-                feedback.innerText =  `Nope, you have ${chancesLeft} chances left` ;
-                feedback.classList.add( "wrong");
-                counter++;
-                chancesLeft--;
-                // console.log( counter );
-                if (counter >= 3){
-                    alert("You are out of luck!");
-                    document.getElementById("submitGuess").style.display = "none";
-                    restartButton.style.display = "inline-block"
-
-                }
-
-            }
-        }
-
-        function restartGame() {
-            window.location.reload(); // Reload
-        }
-
-    </script>
+    <script src="js/mazeGame.js"></script>
 </head>
-<body onLoad="showWord()">
-<h1>Word Scrambler Game</h1>
-<p id="scrambledWord"></p>
-<input type="text" id="guessInput" placeholder="Guess the word" />
-<button id="submitGuess" onClick="playGame()">Submit</button>
-<button id="restartGame" style="display: none;" onClick="restartGame()">Restart Game</button>
-
-<p id="feedback"></p>
-
+<body onLoad="drawBoard()">
+<h1>Maze Game</h1>
+<p>Use arrow keys to move.</p>
+<div id="gameBoard" class="grid"></div>
 </body>
 </html>

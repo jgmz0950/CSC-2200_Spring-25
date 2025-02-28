@@ -125,13 +125,17 @@
     function applyOption(text, option) {
         switch (option) {
             case "reverse":
-                //TODO: use forloop
+                let reversedText = "";
+                text.split("").forEach(char => {
+                    reversedText = char + reversedText;
+                })
+                return reversedText;
             case "slice":
                 return text.slice(0,5);
             case "substring":
                 return text.substring(2, 6);
             case "replace":
-                //TODO: replace hello with hi
+                return text.replace("hello", "hi");
             case "trim":
                 return text.trim();
             case "charAt":
@@ -139,9 +143,14 @@
             case "indexOf":
                 return text.indexOf('a');
             case "doubleLetters":
-                //TODO:
+                let updatedText = "";
+                text.split("").forEach(char => {
+                    updatedText += char + char;
+                })
+                return updatedText;
+
             case "countVowels":
-              return  countVowels(text,/[aeiou]/g);
+              return  countVowels(text,/[aeiou]/gi);
             case "countE":
                 // let vowels = text.match(/[e]/g) // gi = case-insensitive
                 // return vowels ? vowels.length : 0;
