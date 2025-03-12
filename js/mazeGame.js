@@ -7,6 +7,7 @@ const maze = [
     [1,1,1,1,1]
 
 ];
+let keyUp = "";
 let playerPos = {row: 3, col:1}
 document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowUp") { movePlayer( -1, 0)}
@@ -28,8 +29,8 @@ function movePlayer(rowOfSet, colOfSet){
       if(newRow === 3 && newCol === 3){
           setTimeout( () => {
               alert("you won");
-              removeEventListener("keydown", (keydownHandler) => {
-
+              removeEventListener("keydown", (event) => {
+                  event.preventDefault();
               })
           }, 1000);
       }
