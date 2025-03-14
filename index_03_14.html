@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Quiz App</title>
+</head>
+<body>
+<h2 id="question"></h2>
+<ul>
+    <li>
+        <button class="answer-btn" data-index="0"></button>
+    </li>
+    <li>
+        <button class="answer-btn" data-index="1"></button>
+    </li>
+    <li>
+        <button class="answer-btn" data-index="2"></button>
+    </li>
+</ul>
+<p id="result"></p>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const quiz = {
+            question: "What does HTML stand for?",
+            options: [
+                "HyperText Markup Language",
+                "HotMail Language",
+                "Hyperloop Machine Language"
+            ],
+            correctIndex: 0,
+            renderQuiz() {
+                document.getElementById("question").textContent = this.question;
+                const buttons = document.querySelectorAll(".answer-btn");
+                buttons.forEach((btn, idx) => {
+                    btn.textContent = this.options[idx];
+                    document.querySelectorAll(".answer-btn").forEach(btn => {
+                        btn.addEventListener("click", () => {
+                            const selected = parseInt(btn.getAttribute("data-index"));
+                            quiz.checkAnswer(selected);
+                        });
+                    });
+                });
+            },
+            checkAnswer(index){
+                const result = document.getElementById("result");
+                if (index === this.correctIndex) {
+                    result.textContent = "✅ Correct!";
+                } else {
+                    result.textContent = "❌ Try again.";
+                }
+            }
+        };
+        quiz.renderQuiz();
+
+    });
+</script>
+</body>
+</html>
