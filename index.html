@@ -4,45 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grid Example</title>
-    <style>
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 5px;
-        }
-        .cell {
-            width: 100px;
-            height: 100px;
-            background-color: lightgray;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-        }
-    </style>
+  <link rel="stylesheet" href="css/HW_03_12.css">
+    <script src="js/HW_03_12.js" defer></script>
 </head>
 <body>
 
+<div class="above-grid">
+    <p id="text-after-winning"></p>
+</div>
 <div class="grid" id="gridContainer"></div>
 
-<script>
-    const gridContainer = document.getElementById('gridContainer');
-    const numCells = 9;
-    for (let i = 0; i < numCells; i++) {
-        let cell = document.createElement('div');
-        cell.classList.add('cell');
-        gridContainer.appendChild(cell);
-        cell.setAttribute('data-index', i);
-        cell.setAttribute('data-row', Math.floor(1/3));
-        cell.addEventListener('click', () => {
-            let itemNumber = cell.getAttribute('data-index');
-            let rowNumber = cell.getAttribute('data-row');
-            alert(`Cell Item: ${rowNumber}, Col: ${itemNumber}`);
-        })
-        gridContainer.appendChild(cell);
-    }
-</script>
 
 </body>
