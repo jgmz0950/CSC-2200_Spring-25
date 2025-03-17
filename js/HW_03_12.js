@@ -22,6 +22,11 @@ function initializeGrid(){
 }
 
 function handleCellClick(event){
+    // check for disabled after winning
+    if (gridContainer.classList.contains('disabled')) {
+        return;
+    }
+
     const cell = event.target; //get clicked cell
     const currentIndex = parseInt(cell.getAttribute('data-index')); //get index of clicked cell
     let count = gridIndex[currentIndex]; //get current count from array
@@ -68,22 +73,30 @@ function checkWin() {
 
         if(!winRow && row === 0){
             let colSum = calculateSum('col', col)
+            const colWin = `Column ${col + 1} wins with ${colSum} total clicks!`;
+
             if (colSum >= 5) {
-                alert(`Column ${col + 1} wins with ${colSum} total clicks!`);
+                alert(colWin);
+                updateWinMessage(colWin);
                 document.getElementById("reset-button").style.display = 'block';
                 highLightWinningLine('col', col);
                 winRow = true;
+                disableGrid();
             }
         }
 
         // Sum the row values
         if (!winRow && col === 0) {
             let rowSum = calculateSum('row', row)
+            const rowWin = `Row ${row + 1} wins with ${rowSum} total clicks!`;
+
             if (rowSum >= 5) {
-                alert(`Row ${row + 1} wins with ${rowSum} total clicks!`);
+                alert(rowWin);
+                updateWinMessage(rowWin);
                 document.getElementById("reset-button").style.display = 'block';
                 highLightWinningLine('row', row);
                 winRow = true;
+                disableGrid();
 
             }
         }
@@ -92,6 +105,15 @@ function checkWin() {
 
 function resetGame(){
     location.reload();
+}
+
+
+function updateWinMessage(message){
+    let msgElement = document.getElementById('below-grid-text');
+    msgElement.innerText = message;
+    msgElement.style.color = "red";
+    msgElement.style.fontWeight = "bold";
+
 }
 
 function highLightWinningLine(type, index){
@@ -120,6 +142,12 @@ function calculateSum(type, index) {
         }
     }
     return sum;
+}
+
+//disable Grid
+function disableGrid(){
+    console.log('disableGrid');
+    document.getElementById('gridContainer').classList.add('disabled');
 }
 
 initializeGrid();

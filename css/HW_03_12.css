@@ -24,6 +24,6 @@
     background-color: orange;
 }
 .highlight {
-    background-color: yellow !important;
+    background-color: yellow    ;
     border: 2px solid black;
 }
