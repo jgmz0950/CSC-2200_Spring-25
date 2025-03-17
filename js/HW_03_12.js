@@ -35,9 +35,12 @@ function handleCellClick(event){
     //call update color function
     updateCellColor(cell, count)
 
-    //console.table(gridIndex);
 
+    //let DOM update before running checkwin()
+setTimeout(()=>{
     checkWin();
+}, 0);
+
 }
 
 function updateCellColor(cell, count){
@@ -55,35 +58,68 @@ function updateCellColor(cell, count){
 }
 
 function checkWin() {
+    //var for winning row
+    let winRow =false;
    //iterate
     gridIndex.forEach((cell, index) => {
         //calc row and column
         const row = Math.floor(index / 4);
         const col = index % 4;
 
-        if(row === 0){
-            let colSum = 0;
-            for(let i = 0; i < 4; i++) {
-                colSum += gridIndex[i * 4 + col];
-            }
+        if(!winRow && row === 0){
+            let colSum = calculateSum('col', col)
             if (colSum >= 5) {
                 alert(`Column ${col + 1} wins with ${colSum} total clicks!`);
-
+                document.getElementById("reset-button").style.display = 'block';
+                highLightWinningLine('col', col);
+                winRow = true;
             }
         }
 
         // Sum the row values
-        if (col === 0) {  // We start summing when we reach the first column of each row
-            let rowSum = 0;
-            for (let i = 0; i < 4; i++) {
-                rowSum += gridIndex[row * 4 + i];
-            }
+        if (!winRow && col === 0) {
+            let rowSum = calculateSum('row', row)
             if (rowSum >= 5) {
                 alert(`Row ${row + 1} wins with ${rowSum} total clicks!`);
+                document.getElementById("reset-button").style.display = 'block';
+                highLightWinningLine('row', row);
+                winRow = true;
 
             }
         }
     })
+}
+
+function resetGame(){
+    location.reload();
+}
+
+function highLightWinningLine(type, index){
+        if (type === 'row'){
+            for(let x = 0; x < 4; x++){
+                document.querySelector(`[data-index="${index * 4 + x}"]`).classList.add('highlight');            }
+        } else if(type === 'col'){
+            for(let x = 0; x < 4; x++){
+                document.querySelector(`[data-index="${index + x * 4}"]`).classList.add('highlight');
+            }
+        }
+        //TODO: ternary operator instead?
+
+}
+
+//calc row and col
+function calculateSum(type, index) {
+    let sum = 0;
+    if (type === 'row') {
+        for (let i = 0; i < 4; i++) {
+            sum += gridIndex[index * 4 + i];
+        }
+    } else if (type === 'col') {
+        for (let i = 0; i < 4; i++) {
+            sum += gridIndex[i * 4 + index];
+        }
+    }
+    return sum;
 }
 
 initializeGrid();
