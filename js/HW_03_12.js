@@ -146,13 +146,12 @@ function calculateSum(type, index) {
 
 //disable Grid
 function disableGrid(){
-    console.log('disableGrid');
     document.getElementById('gridContainer').classList.add('disabled');
 }
 
 initializeGrid();
 
-// for (let i = 0; i < numCells; i++) {
+// for (let i = 0; i < numCells; i++) { *old code*
 //     // let counter = 0; no bueno, resets counter to 0 after each click
 //     // instead store counter as attribute
 //

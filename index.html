@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fruit Filter Exercise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background-color: #f9f9f9;
+        }
+
+        #fruitContainer {
+            background-color: #fff;
+            padding: 1rem;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
+        .highlight {
+            color: darkgreen;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function showList() {
+            const fruits = ["Apple", "Banana", "Cherry", "Dragon Fruit", "Elderberry", "Avocado", "Blueberry"];
+            const ul = document.createElement("ul");
+            // for (let fruit of fruits) {
+            //
+            // }
+            fruits.forEach(fruit => {
+                // console.log(fruit);
+                const li = document.createElement("li");
+                let fLetter = fruit.charAt(0).toLowerCase();
+                if(fLetter === "a"){
+                    li.classList.add("highlight");
+                }
+                li.innerHTML = fruit;
+                ul.appendChild(li);
+            })
+            let fContainer = document.getElementById("fruitContainer");
+            fContainer.appendChild(ul);
+        }
+
+
+    </script>
+</head>
+<body onLoad="showList()">
+
+<h2>Fruits Starting With A, B, or C</h2>
+<div id="fruitContainer"></div>
+
+
+</body>
+</html>
