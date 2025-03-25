@@ -9,7 +9,6 @@
             margin: 2rem;
             background-color: #f9f9f9;
         }
-
         #fruitContainer {
             background-color: #fff;
             padding: 1rem;
@@ -17,39 +16,35 @@
             border-radius: 8px;
             max-width: 400px;
         }
-
         ul {
             list-style-type: square;
             padding-left: 20px;
         }
-
         .highlight {
-            color: darkgreen;
+            color: red;
             font-weight: bold;
         }
     </style>
     <script>
         function showList() {
             const fruits = ["Apple", "Banana", "Cherry", "Dragon Fruit", "Elderberry", "Avocado", "Blueberry"];
+            // for( let i=0; i<fruits.length; i++){
+            // fruits.forEach( fruit => {
+            // })
             const ul = document.createElement("ul");
-            // for (let fruit of fruits) {
-            //
-            // }
-            fruits.forEach(fruit => {
-                // console.log(fruit);
-                const li = document.createElement("li");
-                let fLetter = fruit.charAt(0).toLowerCase();
-                if(fLetter === "a"){
+
+            for (let fruit of fruits) {
+                let li = document.createElement("li");
+                let fLetter = fruit.charAt(0).toUpperCase();
+                if ( fLetter === "A" || fLetter === "B"){
                     li.classList.add("highlight");
                 }
-                li.innerHTML = fruit;
+                li.textContent = fruit;
                 ul.appendChild(li);
-            })
+            }
             let fContainer = document.getElementById("fruitContainer");
             fContainer.appendChild(ul);
         }
-
-
     </script>
 </head>
 <body onLoad="showList()">
