@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship Game</title>
+    <link rel="stylesheet" href="./css/battleship.css">
+    <script src="./js/battleship.js" defer></script>
+</head>
+<body>
+<h1>Battleship Game</h1>
+<div class="game-container">
+    <div class="game-info">
+        <div class="attempts">Attempts left: <span id="attempts-left">30</span></div>
+        <div id="message" class="message info">Find all ships to win! Click on the grid to fire.</div>
+    </div>
+
+    <div class="board-container">
+        <!-- Column labels (1-8) -->
+        <div class="board-labels">
+            <div></div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+        </div>
+
+        <!-- Game board will be generated here -->
+        <div id="game-board"></div>
+    </div>
+
+    <button id="reset-button">New Game</button>
+</div>
+
+<script>
+
+</script>
+</body>
+</html>

@@ -70,7 +70,7 @@ function createBookCard(book){
     //structure cards
     card.classList.add("p-2","text-light", "mt-4", "rounded");
 
-    // add classes depending on status
+    // add classes depending on rating
     if(book.rating >= 4.0){
         card.classList.add("bg-success");
     } else if(book.rating >= 3.5 && book.rating < 4.0){

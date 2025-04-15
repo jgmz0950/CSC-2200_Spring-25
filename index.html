@@ -1,57 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Fruit Filter Exercise</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 2rem;
-            background-color: #f9f9f9;
-        }
-        #fruitContainer {
-            background-color: #fff;
-            padding: 1rem;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            max-width: 400px;
-        }
-        ul {
-            list-style-type: square;
-            padding-left: 20px;
-        }
-        .highlight {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
-    <script>
-        function showList() {
-            const fruits = ["Apple", "Banana", "Cherry", "Dragon Fruit", "Elderberry", "Avocado", "Blueberry"];
-            // for( let i=0; i<fruits.length; i++){
-            // fruits.forEach( fruit => {
-            // })
-            const ul = document.createElement("ul");
+  <meta charset="UTF-8">
+  <title>Pet Adoption Center</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      max-width: 600px;
+    }
 
-            for (let fruit of fruits) {
-                let li = document.createElement("li");
-                let fLetter = fruit.charAt(0).toUpperCase();
-                if ( fLetter === "A" || fLetter === "B"){
-                    li.classList.add("highlight");
-                }
-                li.textContent = fruit;
-                ul.appendChild(li);
+    h2, h3 {
+      color: #2c3e50;
+    }
+
+    .pet {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+    }
+
+    .notAvailable {
+      background-color: #ffe6e6;
+      border-color: red;
+    }
+
+    label, select, input[type="text"] {
+      display: block;
+      margin: 8px 0;
+    }
+
+    button {
+      padding: 6px 12px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+
+  <script>
+
+    window.addEventListener('DOMContentLoaded', function () {
+      const pets = {
+        'dog': [
+          { name: 'Rex', available: true },
+          { name: 'Buddy', available: false }
+        ],
+        'cat': [
+          { name: 'Whiskers', available: true },
+          { name: 'Luna', available: true }
+        ]
+      };
+      const petList = document.getElementById("petList");
+      const speciesFilter = document.getElementById("speciesFilter");
+      function renderPets( filter = "all"){
+        petList.innerHTML = "";
+        // alert( "filter=" +filter);
+        // let petKeys = Object.keys(pets);
+        for ( let species in pets ){
+          if ( filter !== "all" && species != filter) continue;
+          // console.log(species);
+
+          pets[species].forEach( petRow => {
+            let div = document.createElement("div");
+            div.classList.add("pet");
+            if ( !petRow.available){
+              div.classList.add("notAvailable");
             }
-            let fContainer = document.getElementById("fruitContainer");
-            fContainer.appendChild(ul);
+            div.innerHTML = `<b> ${petRow.name}</b> - ${species} - ${petRow.available ? "Available" : "Not Available"}`;
+            petList.appendChild(div);
+          })
         }
-    </script>
+
+      }
+      renderPets( speciesFilter.value );
+      speciesFilter.addEventListener('change', () =>{
+        renderPets( speciesFilter.value );
+      });
+      // Now do the form
+      const petForm = document.getElementById("petForm");
+      petForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+      });
+    });
+
+  </script>
 </head>
-<body onLoad="showList()">
+<body>
 
-<h2>Fruits Starting With A, B, or C</h2>
-<div id="fruitContainer"></div>
+<h2>🐾 Pet Adoption Center</h2>
 
+<label for="speciesFilter">Filter by species:</label>
+<select id="speciesFilter">
+  <option value="all">All</option>
+  <option value="dog">Dog</option>
+  <option value="cat" selected >Cat</option>
+</select>
+
+<div id="petList"></div>
+
+<h3>Add a New Pet</h3>
+<form id="petForm">
+  <input type="text" id="petName" placeholder="Pet name" required>
+
+  <label for="petSpecies">Species:</label>
+  <select id="petSpecies">
+    <option value="dog">Dog</option>
+    <option value="cat">Cat</option>
+  </select>
+
+  <label>
+    <input type="checkbox" id="petAvailable"> Available for adoption
+  </label>
+
+  <button type="submit">Add Pet</button>
+</form>
 
 </body>
 </html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script defer>
+    const pets = {
+      'dog': [
+        { name: 'Rex',  available: true },
+        { name: 'Buddy', available: false }
+      ],
+      'cat': [
+        { name: 'Whiskers', available: true },
+        { name: 'Luna', available: true },
+        { name: 'Rex', available: true }
+      ]
+    };
+    const products = [
+        { id: 1, name: "Laptop", price: 999, inStock: true },
+        { id: 2, name: "Phone", price: 699, inStock: false },
+        { id: 3, name: "Tablet", price: 499, inStock: true }
+    ];
+
+    const fruits = [ "Apple", "Banana", "Cherry" ];
+
+    const randomData = {
+        cars: [
+            { brand: "Toyota", model: "Corolla", year: 2020 },
+            { brand: "Ford", model: "Mustang", year: 2022 }
+        ],
+        laptops: [
+            { brand: "Apple", model: "MacBook Air", year: 2021 },
+            { brand: "Dell", model: "XPS 13", year: 2023 },
+            { brand: "Lenovo", model: "ThinkPad X1", year: 2022 }
+        ],
+        phones: [
+            { brand: "Samsung", model: "Galaxy S21", year: 2021 },
+            { brand: "Google", model: "Pixel 7", year: 2022 }
+        ]
+    };
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log(fruits);
+        fruits.unshift("banana");
+        console.log(fruits);
+        fruits.push("Last");
+        console.log(fruits);
+        fruits.shift();
+        console.log(fruits);
+        fruits.pop();
+        console.log(fruits);
+
+
+    });
+    //TODO: ul li, filter
+  </script>
+</head>
+<body>
+
+<div id="fruitContainer">
+
+
+</div>
+
+<div id="petContainer">
+
+</div>
+
+<div id="productContainer">
+
+</div>
+
+
+</body>
+</html>
