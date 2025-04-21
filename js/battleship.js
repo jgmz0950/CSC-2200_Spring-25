@@ -33,7 +33,7 @@ resetButton.addEventListener('click', resetGame);
 function initializeGame() {
     // Reset game state
     gameBoard = createEmptyBoard();
-    attemptsLeft = MAX_ATTEMPTS;
+
 
     // Place ships randomly on the board
     placeShipsRandomly();
@@ -179,6 +179,7 @@ function handleCellClick(event) {
         event.target.classList.add('hit');
         //update isHit
         cell.isHit = true;
+
         displayMessage("Hit!", "success");
     } else {
         event.target.classList.add('miss');
@@ -201,7 +202,7 @@ function handleCellClick(event) {
 function updateAttemptsDisplay() {
     // Your code here:
     // Update the attempts left display
-   document.getElementById('attempts-left').innerHTML = attemptsLeft;
+    attemptsLeftElement.innerHTML = attemptsLeft;
 
 }
 
